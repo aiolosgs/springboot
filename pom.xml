@@ -6,6 +6,7 @@
     <groupId>com.codegenius</groupId>
     <artifactId>aiolosgs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+	<name>springboot</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
