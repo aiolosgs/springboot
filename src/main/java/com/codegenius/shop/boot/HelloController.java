@@ -1,4 +1,4 @@
-package boot;
+package com.codegenius.shop.boot;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
