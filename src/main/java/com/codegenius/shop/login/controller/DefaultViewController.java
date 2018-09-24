@@ -12,7 +12,7 @@ public class DefaultViewController{
 		return "index";
     }
 	
-	@RequestMapping("/login")
+	@RequestMapping("login")
 	public String login(){
 		System.out.println("go to login");
 		return "login";
