@@ -1,20 +1,24 @@
 package com.codegenius.shop.login.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.codegenius.shop.core.configuration.SystemConfiguration;
 
 @Controller
 public class DefaultViewController{
 
-	@Value("${test.config}")
-	private String config;
-	
-	@Value("${security.config}")
-	private String security;
-	
-	@Value("${system.config}")
-	private String system;
+	@Autowired
+	private SystemConfiguration sysConfig;
+//	@Value("${test.config}")
+//	private String config;
+//	
+//	@Value("${security.config}")
+//	private String security;
+//	
+//	@Value("${system.config}")
+//	private String system;
 	
 	@RequestMapping("/")
     public String index() {
@@ -24,9 +28,11 @@ public class DefaultViewController{
 	
 	@RequestMapping("login")
 	public String login(){
-		System.out.println(security);
-		System.out.println(system);
-		System.out.println(config);
+//		System.out.println(security);
+//		System.out.println(system);
+//		System.out.println(config);
+		System.out.println(sysConfig.getName());
+		System.out.println(sysConfig.getValue());
 		System.out.println("go to login");
 		return "login";
 	}

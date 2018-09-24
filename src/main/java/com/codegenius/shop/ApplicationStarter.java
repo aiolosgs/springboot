@@ -12,6 +12,7 @@ public class ApplicationStarter/* extends SpringBootServletInitializer*/{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApplicationStarter.class, args);
+//		SpringApplication app = new SpringApplication(ApplicationStarter.class);
 	}
 	
 //	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
