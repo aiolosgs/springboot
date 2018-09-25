@@ -1,4 +1,4 @@
-package com.codegenius.shop.login.controller;
+package com.codegenius.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import com.codegenius.shop.entity.User;
 import com.codegenius.shop.mapper.UserDao;
 
 @Controller
-public class DefaultViewController{
+public class LoginController{
 
 	@Autowired
 	private SystemConfiguration sysConfig;
