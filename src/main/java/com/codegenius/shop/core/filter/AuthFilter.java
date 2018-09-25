@@ -1,6 +1,8 @@
 package com.codegenius.shop.core.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,6 +21,8 @@ public class AuthFilter implements Filter{
 
 	private static boolean flag = false;
 	
+	private List<String> ignoreList = new ArrayList<String>();
+	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -35,10 +39,9 @@ public class AuthFilter implements Filter{
 		String uri = request.getRequestURI();
 		String contextPath 	= request.getContextPath();
 		String target = uri.replace(contextPath, "");
-		System.out.println(target);
 		
 		if(!flag){
-			if("/login".equals(target)){
+			if(isIgnore(target)){
 				filterChain.doFilter(req, res);
 				return;
 			}
@@ -49,10 +52,15 @@ public class AuthFilter implements Filter{
 		}
 	}
 
+	private boolean isIgnore(String url){
+		return this.ignoreList.contains(url);
+	}
+	
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
-		
+		this.ignoreList.add("/login");
+		this.ignoreList.add("/druid");
 	}
 
 	

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.codegenius.shop.core.configuration.SystemConfiguration;
+import com.codegenius.shop.entity.User;
+import com.codegenius.shop.mapper.UserDao;
 
 @Controller
 public class DefaultViewController{
@@ -20,6 +22,9 @@ public class DefaultViewController{
 //	@Value("${system.config}")
 //	private String system;
 	
+	@Autowired
+	private UserDao userDao;
+	
 	@RequestMapping("/")
     public String index() {
 		System.out.println("go to index");
@@ -28,11 +33,9 @@ public class DefaultViewController{
 	
 	@RequestMapping("login")
 	public String login(){
-//		System.out.println(security);
-//		System.out.println(system);
-//		System.out.println(config);
-		System.out.println(sysConfig.getName());
-		System.out.println(sysConfig.getValue());
+		User user = userDao.getUserById("1");
+		System.out.println(user.getLoginName());
+		System.out.println(user.getDateOfBirth());
 		System.out.println("go to login");
 		return "login";
 	}
