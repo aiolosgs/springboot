@@ -1,12 +1,12 @@
-package com.codegenius.shop.controller;
+package com.codegenius.shop.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.codegenius.shop.core.configuration.SystemConfiguration;
-import com.codegenius.shop.entity.User;
-import com.codegenius.shop.mapper.UserDao;
+import com.codegenius.shop.web.entity.User;
+import com.codegenius.shop.web.mapper.UserDao;
 
 @Controller
 public class LoginController{

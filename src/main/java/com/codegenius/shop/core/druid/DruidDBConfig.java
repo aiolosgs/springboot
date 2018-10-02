@@ -1,4 +1,4 @@
-package com.codegenius.shop.druid;
+package com.codegenius.shop.core.druid;
 
 import java.sql.SQLException;
 import javax.sql.DataSource;

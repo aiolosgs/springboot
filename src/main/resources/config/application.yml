@@ -1,0 +1,12 @@
+spring: 
+    mvc:
+        view:
+            prefix: /
+            suffix: .html
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+    profiles:
+        active: persistence
+

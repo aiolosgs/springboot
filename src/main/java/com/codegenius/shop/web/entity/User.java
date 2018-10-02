@@ -1,4 +1,4 @@
-package com.codegenius.shop.entity;
+package com.codegenius.shop.web.entity;
 
 import java.util.Date;
 

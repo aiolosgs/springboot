@@ -1,4 +1,4 @@
-package com.codegenius.shop.druid;
+package com.codegenius.shop.core.druid;
 
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;

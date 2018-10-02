@@ -1,4 +1,4 @@
-package com.codegenius.shop.core.filter;
+package com.codegenius.shop.web.filter;
 
 import java.io.IOException;
 import java.util.ArrayList;
