@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.codegenius.shop.mapper.UserDao">
-    <select id="getUserById" resultType="com.codegenius.shop.entity.User">
+<mapper namespace="com.codegenius.shop.web.mapper.UserDao">
+    <select id="getUserById" resultType="com.codegenius.shop.web.entity.User">
         select * from user where id = #{id}
     </select>
 </mapper>

@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan//扫描filter
-@MapperScan("com.codegenius.shop.mapper")
+@MapperScan("com.codegenius.shop.web.mapper")
 public class ApplicationStarter/* extends SpringBootServletInitializer*/{
 
 	public static void main(String[] args) {

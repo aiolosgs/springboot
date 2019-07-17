@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.annotation.Order;
 
 @Order(0)
-@WebFilter(filterName="testFilter",urlPatterns="/*")
+@WebFilter(filterName="testFilter",urlPatterns="/test")
 public class AuthFilter implements Filter{
 
 	private static boolean flag = false;

@@ -1,14 +1,14 @@
 package com.codegenius.shop.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.codegenius.shop.core.configuration.SystemConfiguration;
 import com.codegenius.shop.web.entity.User;
 import com.codegenius.shop.web.mapper.UserDao;
 
-@Controller
+@RestController
 public class LoginController{
 
 	@Autowired
@@ -38,5 +38,10 @@ public class LoginController{
 		System.out.println(user.getDateOfBirth());
 		System.out.println("go to login");
 		return "login";
+	}
+	
+	@RequestMapping("vueServer")
+	public String test(){
+		return "123";
 	}
 }

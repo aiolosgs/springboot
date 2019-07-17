@@ -36,7 +36,7 @@ CREATE TABLE `user` (
   `id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sex` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `date_of_birth` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `date_of_birth` date NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `login_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dattt` datetime DEFAULT NULL
@@ -45,4 +45,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', '1', '2018-09-25 18:30:29', '1', '1', '2018-09-25 18:30:09');
+INSERT INTO `user` VALUES ('admin', 'admin', '0', '1900-01-01', 'admin', '1', '2018-09-25 18:30:09');
