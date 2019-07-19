@@ -91,4 +91,23 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<repository>    
+			<id>alimaven</id>    
+			<name>alimaven</name>    
+			<layout>default</layout>  
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>    
+			<snapshots>    
+				<enabled>false</enabled>    
+			</snapshots>    
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<name>aliyun</name>
+		</pluginRepository>
+	</pluginRepositories>
+
 </project>
