@@ -37,11 +37,12 @@ public class LoginController{
     }
 	
 	@RequestMapping("login")
-	public String login(@RequestBody LoginVo loginVo){
+	public String login(LoginVo loginVo){
 //		User user = userDao.getUserById("1");
 //		System.out.println(user.getLoginName());
 //		System.out.println(user.getDateOfBirth());
 		System.out.println("go to login");
+		System.out.println(loginVo.getUsername());
 		if(StringUtils.isNotEmpty(loginVo.getUsername()) && loginVo.getUsername().equals("admin")){
 			return "success";
 		}else{
