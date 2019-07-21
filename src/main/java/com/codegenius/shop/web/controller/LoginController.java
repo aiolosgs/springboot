@@ -1,5 +1,7 @@
 package com.codegenius.shop.web.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +43,12 @@ public class LoginController{
 	}
 	
 	@RequestMapping("vueServer")
-	public String test(){
-		return "123";
+	public Object test(){
+		User user = new User();
+		user.setId("1");
+		user.setName("黄思宇");
+		user.setLoginName("huangsiyu");
+		user.setDateOfBirth(new Date());
+		return user;
 	}
 }
