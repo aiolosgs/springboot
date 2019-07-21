@@ -1,13 +1,16 @@
-package com.codegenius.shop.web.controller;
+package com.codegenius.shop.web.login.controller;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codegenius.shop.core.configuration.SystemConfiguration;
 import com.codegenius.shop.web.entity.User;
+import com.codegenius.shop.web.login.vo.LoginVo;
 import com.codegenius.shop.web.mapper.UserDao;
 
 @RestController
@@ -34,12 +37,16 @@ public class LoginController{
     }
 	
 	@RequestMapping("login")
-	public String login(){
+	public String login(@RequestBody LoginVo loginVo){
 //		User user = userDao.getUserById("1");
 //		System.out.println(user.getLoginName());
 //		System.out.println(user.getDateOfBirth());
 		System.out.println("go to login");
-		return "login";
+		if(StringUtils.isNotEmpty(loginVo.getUsername()) && loginVo.getUsername().equals("admin")){
+			return "success";
+		}else{
+			return "fail";
+		}
 	}
 	
 	@RequestMapping("vueServer")
