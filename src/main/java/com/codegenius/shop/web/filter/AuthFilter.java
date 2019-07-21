@@ -12,8 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.util.StringUtils;
 
 @Order(0)
 @WebFilter(filterName="testFilter",urlPatterns="/test")
@@ -33,9 +35,16 @@ public class AuthFilter implements Filter{
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain filterChain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("testFilter");
+		System.out.println("testFilter123");
 		HttpServletRequest request = (HttpServletRequest)req;
-
+		
+		HttpSession session = request.getSession();
+		String csrfToken = (String)session.getAttribute("csrfToken");
+		if(StringUtils.isEmpty(csrfToken)){
+			csrfToken = "1235csrf";
+			session.setAttribute("csrfToken", csrfToken);
+		}
+		
 		String uri = request.getRequestURI();
 		String contextPath 	= request.getContextPath();
 		String target = uri.replace(contextPath, "");

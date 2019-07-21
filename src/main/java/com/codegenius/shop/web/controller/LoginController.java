@@ -35,9 +35,9 @@ public class LoginController{
 	
 	@RequestMapping("login")
 	public String login(){
-		User user = userDao.getUserById("1");
-		System.out.println(user.getLoginName());
-		System.out.println(user.getDateOfBirth());
+//		User user = userDao.getUserById("1");
+//		System.out.println(user.getLoginName());
+//		System.out.println(user.getDateOfBirth());
 		System.out.println("go to login");
 		return "login";
 	}
