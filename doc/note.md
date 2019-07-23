@@ -7,10 +7,7 @@ springboot热更新:
 	<optional>true</optional>
 </dependency>
 
-springboot接受请求参数/springboot中使用MVC：
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-auto-configuration
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-developing-web-applications.html#boot-features-json-components
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-message-converters
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-developing-web-applications.html#boot-features-spring-message-codes
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-developing-web-applications.html#boot-features-spring-mvc-pathmatch
-https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/howto-spring-mvc.html
+springboot接受请求参数/springboot中使用MVC
+
+7.23
+添加登录和用户新增

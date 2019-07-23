@@ -5,4 +5,12 @@
     <select id="getUserById" resultType="com.codegenius.shop.web.entity.User">
         select * from user where id = #{id}
     </select>
+    
+    <select id="getUserByLoginName" resultType="com.codegenius.shop.web.entity.User">
+    	select * from user where login_name = #{loginName}
+    </select>
+    
+    <insert id="save">
+    	insert into user values (#{id},#{name},'1',now(),#{loginName},'1',#{password},#{salt})
+    </insert>
 </mapper>

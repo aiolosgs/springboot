@@ -9,6 +9,10 @@ public class User {
 	private String loginName;
 	private String sex;
 	private Date dateOfBirth;
+	private String password;
+	private String salt;
+	private String active;
+	
 	public String getId() {
 		return id;
 	}
@@ -39,6 +43,23 @@ public class User {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
+	}
 	
 }

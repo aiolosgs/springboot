@@ -1,4 +1,4 @@
-package com.codegenius.shop.web.login.controller;
+package com.codegenius.shop.web.controller;
 
 import java.util.Date;
 import java.util.Map;
@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codegenius.shop.core.configuration.SystemConfiguration;
 import com.codegenius.shop.web.entity.User;
-import com.codegenius.shop.web.login.vo.LoginVo;
 import com.codegenius.shop.web.mapper.UserDao;
+import com.codegenius.shop.web.utils.DigestUtils;
 import com.codegenius.shop.web.utils.RSAUtils;
+import com.codegenius.shop.web.vo.LoginVo;
 
 @RestController
 @RequestMapping("login")
@@ -66,7 +67,11 @@ public class LoginController{
 		try {
 			String username = RSAUtils.decrypt(loginVo.getUsername(), privateKey);
 			String password = RSAUtils.decrypt(loginVo.getPassword(), privateKey);
-			if(StringUtils.isNotEmpty(username) && username.equals("admin")){
+			
+			User user = userDao.getUserByLoginName(username);
+			
+			if("admin".equals(username) || 
+					user!=null && user.getPassword().equals(DigestUtils.sha256DigestWithSalt(password, user.getSalt()))){
 				return "success";
 			}else{
 				return "fail";

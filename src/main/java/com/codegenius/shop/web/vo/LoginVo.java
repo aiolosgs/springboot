@@ -1,4 +1,4 @@
-package com.codegenius.shop.web.login.vo;
+package com.codegenius.shop.web.vo;
 
 public class LoginVo {
 
