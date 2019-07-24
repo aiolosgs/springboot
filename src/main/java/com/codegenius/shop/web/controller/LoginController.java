@@ -2,6 +2,7 @@ package com.codegenius.shop.web.controller;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import com.codegenius.shop.web.mapper.UserDao;
 import com.codegenius.shop.web.utils.DigestUtils;
 import com.codegenius.shop.web.utils.RSAUtils;
 import com.codegenius.shop.web.vo.LoginVo;
+import com.codegenius.shop.web.vo.ResultVo;
 
 @RestController
 @RequestMapping("login")
@@ -61,26 +63,34 @@ public class LoginController{
     }
 	
 	@RequestMapping("doLogin")
-	public String login(@RequestBody LoginVo loginVo,HttpServletRequest req){
+	public ResultVo login(@RequestBody LoginVo loginVo,HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String privateKey = (String)session.getAttribute(RSAUtils.RSA_PRIVATE_KEY);
+
+		String username = null;
+		String password = null;
 		try {
-			String username = RSAUtils.decrypt(loginVo.getUsername(), privateKey);
-			String password = RSAUtils.decrypt(loginVo.getPassword(), privateKey);
-			
-			User user = userDao.getUserByLoginName(username);
-			
-			if("admin".equals(username) || 
-					user!=null && user.getPassword().equals(DigestUtils.sha256DigestWithSalt(password, user.getSalt()))){
-				return "success";
-			}else{
-				return "fail";
-			}
+			username = RSAUtils.decrypt(loginVo.getUsername(), privateKey);
+			password = RSAUtils.decrypt(loginVo.getPassword(), privateKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return new ResultVo(false,"用户名密码解密异常");
 		}
-		return "fail";
+		
+		User user = userDao.getUserByLoginName(username);
+		if("admin".equals(username) || 
+				user!=null && user.getPassword().equals(DigestUtils.sha256DigestWithSalt(password, user.getSalt()))){
+			String token = UUID.randomUUID().toString();
+			session.setAttribute("authToken", token);
+			loginVo.setToken(token);
+			loginVo.setId(user.getId());
+			loginVo.setUsername(username);
+			loginVo.setPassword(password);
+			return new ResultVo(true,loginVo);
+		}else{
+			return new ResultVo(false,"用户不存在");
+		}
 	}
 	
 	@RequestMapping("vueServer")

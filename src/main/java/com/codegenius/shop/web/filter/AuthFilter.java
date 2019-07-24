@@ -11,14 +11,18 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
-import org.springframework.util.StringUtils;
 
 @Order(0)
-@WebFilter(filterName="testFilter",urlPatterns="/test")
+@WebFilter(filterName="AuthFilter",urlPatterns="/*",initParams={
+		@WebInitParam(name="ignore",value="/ignore,/test"),
+		@WebInitParam(name="param",value="123")})
 public class AuthFilter implements Filter{
 
 	private static boolean flag = false;
@@ -35,8 +39,8 @@ public class AuthFilter implements Filter{
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain filterChain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("testFilter123");
 		HttpServletRequest request = (HttpServletRequest)req;
+		HttpServletResponse response = (HttpServletResponse)res;
 		
 		HttpSession session = request.getSession();
 		String csrfToken = (String)session.getAttribute("csrfToken");
@@ -49,16 +53,22 @@ public class AuthFilter implements Filter{
 		String contextPath 	= request.getContextPath();
 		String target = uri.replace(contextPath, "");
 		
-		if(!flag){
-			if(isIgnore(target)){
-				filterChain.doFilter(req, res);
-				return;
-			}
-			req.getRequestDispatcher("/login").forward(req, res);
-			flag = true;
-		}else{
+		String token = (String)session.getAttribute("authToken");
+//		if(StringUtils.isNotEmpty(token)){
+//			response.getWriter().write("");
+//		}else{
+//			
+//		}
+//		if(!flag){
+//			if(isIgnore(target)){
+//				filterChain.doFilter(req, res);
+//				return;
+//			}
+//			req.getRequestDispatcher("/login").forward(req, res);
+//			flag = true;
+//		}else{
 			filterChain.doFilter(req, res);
-		}
+//		}
 	}
 
 	private boolean isIgnore(String url){
@@ -66,10 +76,16 @@ public class AuthFilter implements Filter{
 	}
 	
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		this.ignoreList.add("/login");
-		this.ignoreList.add("/druid");
+		String ignore = config.getInitParameter("ignore");
+		if(StringUtils.isNotEmpty(ignore)){
+			String[] arr = ignore.split(",");
+			for(String uri : arr){
+				System.out.println(uri);
+				ignoreList.add(uri);
+			}
+		}
 	}
 
 	
