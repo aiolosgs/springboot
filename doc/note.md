@@ -29,6 +29,13 @@ AuthFilter：
 5.判断用户的密码与请求中的参数是否一致，如果不一致，提示用户名或密码错误
 6.登陆成功，将用户id加密生成token保存在session中并返回给前端，生成csrfToken保存在session中
 
+session与当前用户
+https://blog.csdn.net/u014203449/article/details/91127576
+https://blog.csdn.net/u014203449/article/details/83241010
+https://blog.csdn.net/ahua186186/article/details/84914862
+
+在线用户
+
 todo:
 白名单逻辑
 缓存
