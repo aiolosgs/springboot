@@ -1,5 +1,7 @@
 package com.codegenius.shop.web.vo;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class ResultVo {
 
 	boolean success;
@@ -41,6 +43,10 @@ public class ResultVo {
 	public void setData(Object data) {
 		this.data = data;
 	}
-	
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 	
 }

@@ -28,14 +28,6 @@ public class LoginController{
 
 	@Autowired
 	private SystemConfiguration sysConfig;
-//	@Value("${test.config}")
-//	private String config;
-//	
-//	@Value("${security.config}")
-//	private String security;
-//	
-//	@Value("${system.config}")
-//	private String system;
 	
 	@Autowired
 	private UserDao userDao;
@@ -43,10 +35,10 @@ public class LoginController{
 	@PostMapping("getRSAKey")
 	public String getRSAKey(HttpServletRequest req){
 		HttpSession session = req.getSession();
-		String publicKey = (String)session.getAttribute(RSAUtils.RSA_PUBLIC_KEY);
-		if(StringUtils.isNotEmpty(publicKey)){
-			return publicKey;
-		}
+//		String publicKey = (String)session.getAttribute(RSAUtils.RSA_PUBLIC_KEY);
+//		if(StringUtils.isNotEmpty(publicKey)){
+//			return publicKey;
+//		}
 		Map<String,String> keyPair = RSAUtils.generateKey();
 		if(keyPair != null){
 			session.setAttribute(RSAUtils.RSA_PUBLIC_KEY, keyPair.get(RSAUtils.RSA_PUBLIC_KEY));
@@ -66,27 +58,21 @@ public class LoginController{
 	public ResultVo login(@RequestBody LoginVo loginVo,HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String privateKey = (String)session.getAttribute(RSAUtils.RSA_PRIVATE_KEY);
+		String publicKey = (String)session.getAttribute(RSAUtils.RSA_PUBLIC_KEY);
 
-		String username = null;
-		String password = null;
-		try {
-			username = RSAUtils.decrypt(loginVo.getUsername(), privateKey);
-			password = RSAUtils.decrypt(loginVo.getPassword(), privateKey);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new ResultVo(false,"用户名密码解密异常");
-		}
+		String username = RSAUtils.decrypt(loginVo.getUsername(), privateKey);
+		String password = RSAUtils.decrypt(loginVo.getPassword(), privateKey);
 		
 		User user = userDao.getUserByLoginName(username);
 		if("admin".equals(username) || 
 				user!=null && user.getPassword().equals(DigestUtils.sha256DigestWithSalt(password, user.getSalt()))){
-			String token = UUID.randomUUID().toString();
+			String token = RSAUtils.encrypt(user.getId(), publicKey);
 			session.setAttribute("authToken", token);
+			session.setAttribute("csrfToken", UUID.randomUUID().toString());
 			loginVo.setToken(token);
-			loginVo.setId(user.getId());
+//			loginVo.setId(user.getId());
 			loginVo.setUsername(username);
-			loginVo.setPassword(password);
+//			loginVo.setPassword(password);
 			return new ResultVo(true,loginVo);
 		}else{
 			return new ResultVo(false,"用户不存在");
