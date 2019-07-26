@@ -19,26 +19,10 @@ springboot接受请求参数/springboot中使用MVC
 
 #### 7.25
 AuthFilter：  
-1.判断是否在白名单中，如果在，跳过后边的逻辑。  
-2.判断session中是否有token，如果没有，返回错误码401；如果有，继续。  
-3.判断请求头中是否有csrfToken，如果没有，返回错误码420；如果有，与session中的csrfToken进行匹配，不匹配，返回错误码420；匹配则通过。    
-```flow
-st=>start: 接收请求
-op1=>operation: 获取uri
-cond1=>condition: 判断uri是否符合白名单规则
-op2=>operation: 从session中获取token
-cond2=>condition: 存在token
-op3=>operation: 从请求头中获取csrfToken
-cond3=>condition: 存在csrfToken
-op4=>operation: 匹配请求头与session中的csrfToken
-cond4=>condition: 匹配成功
-e=>end: 执行后续的过滤器
-
-st->op1->cond1
-cond(yes)->e
-cond(no)->op1
-```
-
+1. 判断是否在白名单中，如果在，跳过后边的逻辑。  
+1. 判断session中是否有token，如果没有，返回错误码401；如果有，继续。  
+1. 判断请求头中是否有csrfToken，如果没有，返回错误码420；如果有，继续。  
+1. 请求头中的csrfToken与session中的csrfToken进行匹配，不匹配，返回错误码420；匹配则通过。    
 
 登录逻辑：  
 1.从session中获取密钥对  
