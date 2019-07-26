@@ -1,4 +1,4 @@
-##7.21
+## 7.21
 springboot热更新：
 在pom.xml中添加如下依赖
 ```xml
@@ -11,13 +11,13 @@ springboot热更新：
 
 springboot接受请求参数/springboot中使用MVC
 
-##7.23
+## 7.23
 添加登录和用户新增
 
-##7.24
+## 7.24
 添加ResultVo统一接口返回格式
 
-##7.25
+## 7.25
 AuthFilter：
 1.判断是否在白名单中，如果在，跳过后边的逻辑。
 2.判断session中是否有token，如果没有，返回错误码401；如果有，继续。
@@ -36,7 +36,7 @@ https://blog.csdn.net/u014203449/article/details/91127576
 https://blog.csdn.net/u014203449/article/details/83241010
 https://blog.csdn.net/ahua186186/article/details/84914862
 
-###todo
+### todo
 ----
 白名单逻辑
 缓存
