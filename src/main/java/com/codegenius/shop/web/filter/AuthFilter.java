@@ -3,6 +3,7 @@ package com.codegenius.shop.web.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -27,9 +28,7 @@ import com.codegenius.shop.web.vo.ResultVo;
 		@WebInitParam(name="param",value="123")})
 public class AuthFilter implements Filter{
 
-	private static boolean flag = false;
-	
-	private List<String> ignoreList = new ArrayList<String>();
+	private static List<String> ignoreList = new ArrayList<String>();
 	
 	@Override
 	public void destroy() {
@@ -49,7 +48,7 @@ public class AuthFilter implements Filter{
 		String uri = request.getRequestURI();
 		String contextPath 	= request.getContextPath();
 		String target = uri.replace(contextPath, "");
-		if(ignoreList.contains(target)){
+		if(isIgnore(target)){
 			filterChain.doFilter(req, res);
 			return;
 		}
@@ -75,8 +74,33 @@ public class AuthFilter implements Filter{
 		}
 	}
 
-	private boolean isIgnore(String url){
-		return this.ignoreList.contains(url);
+	private static boolean isIgnore(String url){
+		for(String ignoreUri : ignoreList){
+//			String ignoreRegExp = ignoreUri.replaceAll("/\\*", "[/.+]{0,1}");
+			String ignoreRegExp = ignoreUri.replaceAll("\\*",".+");
+			if(Pattern.matches(ignoreRegExp, url)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		ignoreList.add("/login/*");
+		ignoreList.add("/ignore");
+		ignoreList.add("/test/*/add");
+		ignoreList.add("*/delete");
+		
+		System.out.println(isIgnore("/login"));
+		System.out.println(isIgnore("/login/doLogin"));
+		System.out.println(isIgnore("/test/add"));
+		System.out.println(isIgnore("/test/user/add"));
+		System.out.println(isIgnore("/test/user/add/11"));
+		System.out.println(isIgnore("/role/delete"));
+		System.out.println(isIgnore("/role/delete/11"));
+		System.out.println(isIgnore("/delete/role"));
+		System.out.println(isIgnore("/delete"));
+		
 	}
 	
 	@Override
