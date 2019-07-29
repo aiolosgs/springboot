@@ -6,6 +6,7 @@ public class LoginVo {
 	private String username;
 	private String password;
 	private String token;
+	private String csrfToken;
 	
 	public String getUsername() {
 		return username;
@@ -30,6 +31,12 @@ public class LoginVo {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getCsrfToken() {
+		return csrfToken;
+	}
+	public void setCsrfToken(String csrfToken) {
+		this.csrfToken = csrfToken;
 	}
 	
 }

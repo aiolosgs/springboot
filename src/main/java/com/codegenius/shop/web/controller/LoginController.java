@@ -68,10 +68,12 @@ public class LoginController{
 				user!=null && user.getPassword().equals(DigestUtils.sha256DigestWithSalt(password, user.getSalt()))){
 			String token = RSAUtils.encrypt(user.getId(), publicKey);
 			session.setAttribute("authToken", token);
-			session.setAttribute("csrfToken", UUID.randomUUID().toString());
+			String csrfToken = UUID.randomUUID().toString();
+			session.setAttribute("csrfToken", csrfToken);
 			loginVo.setToken(token);
 //			loginVo.setId(user.getId());
 			loginVo.setUsername(username);
+			loginVo.setCsrfToken(csrfToken);
 //			loginVo.setPassword(password);
 			return new ResultVo(true,loginVo);
 		}else{

@@ -20,8 +20,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
 
-import com.codegenius.shop.web.vo.ResultVo;
-
 @Order(0)
 @WebFilter(filterName="AuthFilter",urlPatterns="/*",initParams={
 		@WebInitParam(name="ignore",value="/login/getRSAKey,/login/doLogin"),
@@ -44,6 +42,12 @@ public class AuthFilter implements Filter{
 		HttpServletResponse response = (HttpServletResponse)res;
 		HttpSession session = request.getSession();
 		
+		if("GET".equals(request.getMethod())){
+			//不接受get请求
+			response.sendError(415);
+			return;
+		}
+		
 		//白名单检查
 		String uri = request.getRequestURI();
 		String contextPath 	= request.getContextPath();
@@ -55,22 +59,18 @@ public class AuthFilter implements Filter{
 		
 		//检查是否登录
 		String token = (String)session.getAttribute("authToken");
-		if(StringUtils.isNotEmpty(token)){
+		if(StringUtils.isNotEmpty(token) && token.equals(request.getHeader("token"))){
 			//匹配csrfToken
 			String clientCsrfToken = request.getHeader("csrfToken");
-			if(StringUtils.isNotEmpty(clientCsrfToken)){
-				String serverCsrfToken = (String)session.getAttribute("csrfToken");
-				if(clientCsrfToken.equals(serverCsrfToken)){
+			if(StringUtils.isNotEmpty(clientCsrfToken)
+					&& clientCsrfToken.equals(session.getAttribute("csrfToken"))){
 					filterChain.doFilter(req, res);
-				}else{
-					//是否要注销用户？
-					response.getWriter().write(new ResultVo(false,"420").toString());
-				}
 			}else{
-				response.getWriter().write(new ResultVo(false,"420").toString());
+				//是否要注销用户？
+				response.sendError(420);
 			}
 		}else{
-			response.getWriter().write(new ResultVo(false,"401").toString());
+			response.sendError(401);
 		}
 	}
 
