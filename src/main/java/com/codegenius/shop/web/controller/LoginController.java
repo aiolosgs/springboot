@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,6 +78,17 @@ public class LoginController{
 		}else{
 			return new ResultVo(false,"用户不存在");
 		}
+	}
+	
+	@RequestMapping("logout")
+	public ResultVo logout(@RequestBody LoginVo loginVo,HttpServletRequest req){
+		HttpSession session = req.getSession(false);
+		
+		session.removeAttribute("authToken");
+		session.removeAttribute("csrfToken");
+		session.invalidate();
+		
+		return new ResultVo(true);
 	}
 	
 	@RequestMapping("vueServer")

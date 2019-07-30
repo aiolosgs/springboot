@@ -8,6 +8,10 @@ public class ResultVo {
 	String message;
 	Object data;
 
+	public ResultVo(boolean success){
+		this.success = success;
+	}
+	
 	public ResultVo(boolean success, String message){
 		this.success = success;
 		this.message = message;
