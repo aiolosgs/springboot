@@ -47,13 +47,18 @@ public class LoginController{
 		return "";
 	}
 	
+	@PostMapping("getMessageCount")
+	public int getMessageCount(){
+		return 11;
+	}
+	
 	@RequestMapping("/")
     public String index() {
 		System.out.println("go to index");
 		return "index";
     }
 	
-	@RequestMapping("doLogin")
+	@PostMapping("doLogin")
 	public ResultVo login(@RequestBody LoginVo loginVo,HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		String privateKey = (String)session.getAttribute(RSAUtils.RSA_PRIVATE_KEY);
@@ -80,7 +85,7 @@ public class LoginController{
 		}
 	}
 	
-	@RequestMapping("logout")
+	@PostMapping("logout")
 	public ResultVo logout(@RequestBody LoginVo loginVo,HttpServletRequest req){
 		HttpSession session = req.getSession(false);
 		

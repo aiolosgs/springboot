@@ -22,7 +22,7 @@ import org.springframework.core.annotation.Order;
 
 @Order(0)
 @WebFilter(filterName="AuthFilter",urlPatterns="/*",initParams={
-		@WebInitParam(name="ignore",value="/login/getRSAKey,/login/doLogin"),
+		@WebInitParam(name="ignore",value="/login/getRSAKey,/login/doLogin,/login/getMessageCount"),
 		@WebInitParam(name="param",value="123")})
 public class AuthFilter implements Filter{
 

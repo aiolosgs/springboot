@@ -36,6 +36,7 @@ AuthFilter：
 
 ## todo
 * ~~白名单逻辑~~
+* 异常管理（MyBatis）
 * 缓存
 * UserUtils
 * 在线用户
